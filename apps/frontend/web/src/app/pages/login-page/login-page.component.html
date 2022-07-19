@@ -1,0 +1,29 @@
+<header class="py-4 px-6 bg-stone-700">
+  <h2 class="text-white text-2xl">Todo Login</h2>
+</header>
+<div class="p-4">
+  <form class="flex gap-2" [formGroup]="loginFormGroup" (ngSubmit)="submit()">
+    <div class="flex-grow flex flex-col gap-2">
+      <input type="email"
+             class="w-full px-2 py-1 border border-gray-200"
+             formControlName="email"
+             placeholder="이메일 입력">
+      <span *ngIf="submitted && loginFormGroup.hasError('required', 'email')"
+            class="-mt-2 text-xs text-red-700">이메일을 입력해주세요.</span>
+      <span *ngIf="submitted && loginFormGroup.hasError('pattern', 'email')"
+            class="-mt-2 text-xs text-red-700">이메일형식이 아닙니다.</span>
+      <input type="password"
+             class="w-full px-2 py-1 border border-gray-200"
+             formControlName="password"
+             placeholder="비밀번호 입력">
+      <span *ngIf="submitted && loginFormGroup.hasError('required', 'password')"
+            class="-mt-2 text-xs text-red-700">비밀번호를 입력해주세요.</span>
+    </div>
+    <button type="submit"
+            class="border border-blue-800 bg-blue-600 text-white px-4">로그인
+    </button>
+  </form>
+  <div class="text-right">
+    <a class="text-sm text-blue-500" routerLink="/signup">회원가입</a>
+  </div>
+</div>

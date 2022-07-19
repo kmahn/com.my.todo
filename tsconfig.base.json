@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@td/common/error": ["libs/common/error/src/index.ts"],
+      "@td/common/types": ["libs/common/types/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
