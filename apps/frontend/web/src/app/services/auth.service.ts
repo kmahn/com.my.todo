@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '@td/common/types';
+import { Auth, User } from '@td/common/types';
 import { Observable, of } from 'rxjs';
 import { AuthBaseService } from './auth-base.service';
 
@@ -13,7 +13,7 @@ export class AuthService extends AuthBaseService {
     this.loggedIn$ = of(false);
   }
 
-  join({ email, name }: Partial<User>, password: string): Observable<void> {
+  join({ email, name, password }: Pick<User & Auth, 'email' | 'name' | 'password'>): Observable<void> {
     return of(undefined);
   }
 

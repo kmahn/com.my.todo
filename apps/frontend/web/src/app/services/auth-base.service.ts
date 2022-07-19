@@ -1,4 +1,4 @@
-import { User } from '@td/common/types';
+import { Auth, User } from '@td/common/types';
 import { Observable } from 'rxjs';
 
 export abstract class AuthBaseService {
@@ -9,5 +9,5 @@ export abstract class AuthBaseService {
 
   abstract login(email: string, password: string): Observable<void>;
 
-  abstract join({ email, name }: Partial<User>, password: string): Observable<void>;
+  abstract join({ email, name, password }: Pick<User & Auth, 'email' | 'name' | 'password'>): Observable<void>;
 }

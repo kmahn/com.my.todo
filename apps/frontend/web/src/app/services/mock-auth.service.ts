@@ -29,23 +29,18 @@ export class MockAuthService extends AuthBaseService {
     this.loggedIn$ = this.loggedInSubject.asObservable();
   }
 
-  join({ email, name }: Partial<User>, password: string): Observable<void> {
+  join({ email, name, password }: Pick<User & Auth, 'email' | 'name' | 'password'>): Observable<void> {
     const _id = String(this.users.length + 1);
     const exUser = this.users.find(user => user.email === email);
     if (exUser) {
       return throwError(() => new HttpErrorResponse({
           status: 400,
-          error: { code: ErrorCode.EMAIL_USED }
-        })
+          error: { code: ErrorCode.EMAIL_USED },
+        }),
       );
     }
 
-    this.users.push({
-      _id,
-      email: email!,
-      name: name!,
-      role: 'member',
-    });
+    this.users.push({ _id, email, name, role: 'member' });
 
     this.auths.push({
       providerId: _id,
@@ -61,15 +56,15 @@ export class MockAuthService extends AuthBaseService {
     if (index === -1) {
       return throwError(() => new HttpErrorResponse({
           status: 404,
-          error: { code: ErrorCode.USER_NOT_FOUND }
-        })
+          error: { code: ErrorCode.USER_NOT_FOUND },
+        }),
       );
     }
 
     if (this.auths[index].password !== password) {
       return throwError(() => new HttpErrorResponse({
         status: 401,
-        error: { code: ErrorCode.INVALID_PASSWORD }
+        error: { code: ErrorCode.INVALID_PASSWORD },
       }));
     }
 
