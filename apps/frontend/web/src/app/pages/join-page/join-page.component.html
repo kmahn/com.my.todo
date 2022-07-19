@@ -1,0 +1,50 @@
+<header class="py-4 px-6 bg-stone-700">
+  <h2 class="text-white text-2xl">Todo Join</h2>
+</header>
+<div class="p-4">
+  <form [formGroup]="joinFormGroup" (ngSubmit)="submit()">
+    <div class="flex flex-col gap-5">
+      <!-- 이메일 -->
+      <div class="flex flex-col gap-1">
+        <div class="input-item">이메일</div>
+        <div class="flex flex-col gap-0.5">
+          <input type="email" formControlName="email">
+          <span *ngIf="submitted && joinFormGroup.hasError('required', 'email')">
+            이메일을 입력해주세요.
+          </span>
+          <span *ngIf="submitted && joinFormGroup.hasError('pattern', 'email')">
+            이메일형식이 아닙니다.
+          </span>
+        </div>
+      </div>
+
+
+      <!-- 비밀번호 -->
+      <div class="flex flex-col gap-1">
+        <div class="input-item">비밀번호</div>
+        <div class="flex flex-col gap-0.5">
+          <input type="password" formControlName="password">
+          <span *ngIf="submitted && joinFormGroup.hasError('required', 'password')">
+            비밀번호를 입력해주세요.
+          </span>
+        </div>
+      </div>
+
+      <!-- 이름 -->
+      <div class="flex flex-col gap-1">
+        <div class="input-item">이름</div>
+        <div class="flex flex-col gap-0.5">
+          <input type="name" formControlName="name">
+          <span *ngIf="submitted && joinFormGroup.hasError('required', 'name')">
+            이름을 입력해주세요.
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex py-5 gap-x-2.5 float-right">
+      <button type="submit">확인</button>
+      <button type="button" routerLink="/login">취소</button>
+    </div>
+  </form>
+</div>

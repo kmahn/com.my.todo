@@ -11,7 +11,7 @@ import { AuthBaseService } from '../../services/auth-base.service';
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
   loginFormGroup: FormGroup;
-  submitted: boolean = false;
+  submitted = false;
 
   private _subscription?: Subscription;
 
