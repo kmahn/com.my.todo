@@ -9,5 +9,7 @@ export abstract class AuthBaseService {
 
   abstract login(email: string, password: string): Observable<void>;
 
-  abstract join({ email, name }: Partial<User>, password: string): Observable<void>;
+  abstract join({ email, name,  }: Partial<User>, password: string): Observable<void>;
+
+  abstract emailDuplicateCheck( email: string): Observable<boolean>;
 }

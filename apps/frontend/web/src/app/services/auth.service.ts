@@ -20,4 +20,8 @@ export class AuthService extends AuthBaseService {
   login(email: string, password: string): Observable<void> {
     return of(undefined);
   }
+
+  emailDuplicateCheck(email: string): Observable<boolean> {
+    return of(false);
+  }
 }

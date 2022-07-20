@@ -77,4 +77,13 @@ export class MockAuthService extends AuthBaseService {
 
     return of(undefined);
   }
+
+  emailDuplicateCheck(email: string): Observable<boolean> {
+    const user = this.users.find(user => user.email === email);
+    if(user) {
+      return of(true);
+    } else {
+      return of(false);
+    }
+  }
 }

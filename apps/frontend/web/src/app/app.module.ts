@@ -11,10 +11,17 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { AuthBaseService } from './services/auth-base.service';
 import { AuthService } from './services/auth.service';
 import { MockAuthService } from './services/mock-auth.service';
-
+import { JoinPageComponent } from './pages/join-page/join-page.component';
+import {AutoFocus} from "./directives/auto-focus.directive";
 
 @NgModule({
-  declarations: [AppComponent, LoginPageComponent, MainPageComponent],
+  declarations: [
+    AppComponent,
+    LoginPageComponent,
+    MainPageComponent,
+    JoinPageComponent,
+    AutoFocus,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,5 +36,4 @@ import { MockAuthService } from './services/mock-auth.service';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

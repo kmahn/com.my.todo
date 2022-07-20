@@ -1,0 +1,20 @@
+<div>
+  <h2 class="text-center text-xl bg-stone-700 text-white">
+    회원가입
+  </h2>
+  <form class="flex flex-col gap-2 py-5" [formGroup]="joinFormGroup" (ngSubmit)="join()">
+    <div class="flex-grow flex flex-col gap-2 mx-5">
+      <label for="email">이메일</label>
+      <input id="email" class="py-1 border border-gray-200" formControlName="email" autofocus>
+      <label for="password">비밀번호</label>
+      <input id="password" class="px-2 py-1 border border-gray-200" type="password" formControlName="password" #password>
+      <label for="reconfirmPassword">비밀번호 재확인</label>
+      <input id="reconfirmPassword" class="px-2 py-1 border border-gray-200" type="password" formControlName="reconfirmPassword">
+      <label for="name">닉네임</label>
+      <input id="name" class="px-2 py-1 border border-gray-200" formControlName="name">
+    </div>
+    <button type="submit"
+            class="bg-sky-600 hover:bg-sky-700 mx-20 mt-5 rounded-xl border border-blue-800 bg-blue-600 text-white px-10">회원가입
+    </button>
+  </form>
+</div>
