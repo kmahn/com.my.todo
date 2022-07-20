@@ -12,7 +12,7 @@
           <span *ngIf="submitted && joinFormGroup.hasError('required', 'email')">
             이메일을 입력해주세요.
           </span>
-          <span *ngIf="submitted && joinFormGroup.hasError('pattern', 'email')">
+          <span *ngIf="submitted && joinFormGroup.hasError('email', 'email')">
             이메일형식이 아닙니다.
           </span>
         </div>

@@ -20,9 +20,8 @@ export class JoinPageComponent implements OnInit, OnDestroy {
     private router: Router,
     fb: FormBuilder,
   ) {
-    const emailPatter = /^[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}$/;
     this.joinFormGroup = fb.group({
-      email: [null, [Validators.required, Validators.pattern(emailPatter)]],
+      email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
       name: [null, [Validators.required]],
     });
