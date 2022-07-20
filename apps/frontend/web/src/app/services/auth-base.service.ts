@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 export abstract class AuthBaseService {
   abstract readonly loggedIn$: Observable<boolean>;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected constructor() {
   }
 

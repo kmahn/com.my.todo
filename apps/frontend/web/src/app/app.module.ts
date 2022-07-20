@@ -11,10 +11,15 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { AuthBaseService } from './services/auth-base.service';
 import { AuthService } from './services/auth.service';
 import { MockAuthService } from './services/mock-auth.service';
-
+import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginPageComponent, MainPageComponent],
+  declarations: [
+    AppComponent,
+    LoginPageComponent,
+    MainPageComponent,
+    SignupPageComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,5 +34,4 @@ import { MockAuthService } from './services/mock-auth.service';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}
