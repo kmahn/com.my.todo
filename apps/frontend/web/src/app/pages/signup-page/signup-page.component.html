@@ -11,7 +11,7 @@
              placeholder="이메일 입력">
       <span *ngIf="submitted && signupFormGroup.hasError('required', 'email')"
             class="-mt-2 text-xs text-red-700">이메일을 입력해주세요.</span>
-      <span *ngIf="submitted && signupFormGroup.hasError('pattern', 'email')"
+      <span *ngIf="submitted && signupFormGroup.hasError('email', 'email')"
             class="-mt-2 text-xs text-red-700">이메일형식이 아닙니다.</span>
 
       <input type="text"
@@ -27,6 +27,15 @@
              placeholder="비밀번호 입력">
       <span *ngIf="submitted && signupFormGroup.hasError('required', 'password')"
             class="-mt-2 text-xs text-red-700">비밀번호를 입력해주세요.</span>
+      <span *ngIf="submitted && signupFormGroup.hasError('minlength', 'password')"
+            class="-mt-2 text-xs text-red-700">비밀번호는 4자 이상으로 입력해주세요.</span>
+
+      <input type="password"
+             class="w-full px-2 py-1 border border-gray-200"
+             formControlName="confirmPassword"
+             placeholder="비밀번호 확인">
+      <span *ngIf="submitted && signupFormGroup.hasError('confirmPassword')"
+            class="-mt-2 text-xs text-red-700">비밀번호를 확인해주세요.</span>
     </div>
     <button type="submit"
             class="border border-blue-800 bg-blue-600 text-white px-4">회원가입

@@ -6,4 +6,11 @@ export interface Auth {
   provider: AuthProviderType;
   password: string;
   user: string;
+
+  validatePassword?(password: string): boolean;
+}
+
+export interface AuthTokens {
+  accessToken: string;
+  refreshToken: string;
 }

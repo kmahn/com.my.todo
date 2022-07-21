@@ -9,8 +9,8 @@ import {SignupPageComponent} from "./pages/signup-page/signup-page.component";
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'login', canActivate: [NotAuthGuard], component: LoginPageComponent },
+  { path: 'signup', canActivate: [NotAuthGuard], component: SignupPageComponent},
   { path: 'main', canActivate: [AuthGuard],  component: MainPageComponent },
-  { path: 'signup', canActivate: [NotAuthGuard], component: SignupPageComponent}
 ];
 
 @NgModule({

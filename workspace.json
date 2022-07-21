@@ -2,6 +2,10 @@
   "version": 2,
   "projects": {
     "backend": "apps/backend",
+    "backend-config": "libs/backend/config",
+    "backend-database": "libs/backend/database",
+    "backend-exception": "libs/backend/exception",
+    "backend-util": "libs/backend/util",
     "common-error": "libs/common/error",
     "common-types": "libs/common/types",
     "frontend-web": "apps/frontend/web",

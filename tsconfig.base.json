@@ -15,6 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@td/backend/config": ["libs/backend/config/src/index.ts"],
+      "@td/backend/database": ["libs/backend/database/src/index.ts"],
+      "@td/backend/exception": ["libs/backend/exception/src/index.ts"],
+      "@td/backend/util": ["libs/backend/util/src/index.ts"],
       "@td/common/error": ["libs/common/error/src/index.ts"],
       "@td/common/types": ["libs/common/types/src/index.ts"]
     }
