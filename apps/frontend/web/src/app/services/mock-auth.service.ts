@@ -12,8 +12,10 @@ export class MockAuthService extends AuthBaseService {
     email: 'test@test.com',
     name: '홍길동',
     role: 'member',
+    auth: '1',
   }];
   readonly auths: Auth[] = [{
+    _id: '1',
     providerId: '1',
     provider: 'local',
     password: 'asdf',
@@ -45,9 +47,11 @@ export class MockAuthService extends AuthBaseService {
       email: email!,
       name: name!,
       role: 'member',
+      auth: _id,
     });
 
     this.auths.push({
+      _id,
       providerId: _id,
       provider: 'local',
       password,

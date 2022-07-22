@@ -22,7 +22,7 @@ import {
   UnprocessableEntityException as NestUnprocessableEntityException,
   UnsupportedMediaTypeException as NestUnsupportedMediaTypeException,
 } from '@nestjs/common';
-import { ErrorResponse } from '@td/common/error';
+import { ErrorCode, ErrorResponse } from '@td/common/error';
 
 export type HttpExceptionResponse = Partial<ErrorResponse>;
 
@@ -60,8 +60,9 @@ export class ConflictException extends NestConflictException {
 }
 
 export class ForbiddenException extends NestForbiddenException {
-  constructor(response: HttpExceptionResponse) {
+  constructor(response?: HttpExceptionResponse) {
     super({
+      code: ErrorCode.FORBIDDEN,
       ...response,
       status: HttpStatus.FORBIDDEN,
     });

@@ -15,6 +15,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { logger });
   const port = process.env.PORT || 3333;
 
+  app.enableCors();
+
   if (process.env.NODE_ENV !== 'production') {
     const config = new DocumentBuilder()
       .setTitle('Todo Application')
