@@ -5,9 +5,12 @@ import { UserRoleType } from '@td/common/types';
 import { Observable } from 'rxjs';
 import { LoginRequiredException } from '../exceptions/login-required.exception';
 
+
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private reflector: Reflector) {
+  constructor(
+    private reflector: Reflector,
+  ) {
   }
 
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
