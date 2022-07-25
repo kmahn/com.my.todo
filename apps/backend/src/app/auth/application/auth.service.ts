@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { AuthTokens } from '@td/common/types';
+import { AuthTokens, User } from '@td/common/types';
 import { LocalJoinDto } from '../interface/dto/local-join.dto';
 import { AuthTokensRepository } from '../repositories/auth-tokens-repository';
 import { UserRepository } from '../repositories/user-repository';
@@ -43,5 +43,17 @@ export class AuthService {
       _id: exUser._id,
       role: exUser.role
     });
+  }
+
+  async refreshToken(refreshToken: string): Promise<AuthTokens> {
+    return this.tokensRepository.updateAuthTokens(refreshToken);
+  }
+
+  getMe(id: string): Promise<Partial<User>> {
+    return this.userRepository.findOneById(id);
+  }
+
+  logout(refreshToken: string): Promise<void> {
+    return this.tokensRepository.remove(refreshToken);
   }
 }

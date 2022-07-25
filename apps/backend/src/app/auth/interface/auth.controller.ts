@@ -1,10 +1,12 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { ApiExceptions } from '@td/backend/util';
+import { ApiExceptions, User } from '@td/backend/util';
+import { AuthTokens, User as IUser, UserProfile } from '@td/common/types';
 import { AuthService } from '../application/auth.service';
 import { EmailUsedException } from '../application/exceptions/email-used.exception';
 import { InvalidPasswordException } from '../application/exceptions/invalid-password.exception';
 import { UserNotFoundException } from '../application/exceptions/user-not-found.exception';
+import { Auth } from './decorators/auth.decorator';
 import { LocalJoinDto } from './dto/local-join.dto';
 import { LocalLoginDto } from './dto/local-login.dto';
 
@@ -19,7 +21,7 @@ export class AuthController {
     EmailUsedException
   )
   @Post('join')
-  join(@Body() dto: LocalJoinDto) {
+  join(@Body() dto: LocalJoinDto): Promise<void> {
     return this.authService.join(dto);
   }
 
@@ -28,8 +30,24 @@ export class AuthController {
     InvalidPasswordException
   )
   @Post('login')
-  login(@Body() dto: LocalLoginDto) {
+  login(@Body() dto: LocalLoginDto): Promise<AuthTokens> {
     const { email, password } = dto;
     return this.authService.login(email, password);
+  }
+
+  @Get('me')
+  @Auth()
+  getMe(@User() user: UserProfile): Promise<Partial<IUser>> {
+    return this.authService.getMe(user._id);
+  }
+
+  @Get('token/refresh')
+  refreshTokens(@Headers('x-refresh-token') refreshToken: string): Promise<AuthTokens> {
+    return this.authService.refreshToken(refreshToken);
+  }
+
+  @Get('logout')
+  logout(@Headers('x-refresh-token') refreshToken: string): Promise<void> {
+    return this.authService.logout(refreshToken);
   }
 }

@@ -25,7 +25,7 @@ export class AuthTokensRepositoryImpl implements AuthTokensRepository {
     return { accessToken, refreshToken };
   }
 
-  async updateAuthTokens(oldRefreshToken: string, userProfile: UserProfile): Promise<AuthTokens> {
+  async updateAuthTokens(oldRefreshToken: string): Promise<AuthTokens> {
     const old = await this.loginInfoModel
       .findOneAndDelete({ refreshToken: oldRefreshToken })
       .lean();
@@ -34,6 +34,8 @@ export class AuthTokensRepositoryImpl implements AuthTokensRepository {
       throw new InvalidRefreshTokenException();
     }
 
+    const { _id, role } = await this.userModel.findById(old.user).lean();
+    const userProfile = { _id, role };
     const accessToken = this.jwtService.sign(userProfile);
     const refreshToken = v4();
 
@@ -42,5 +44,9 @@ export class AuthTokensRepositoryImpl implements AuthTokensRepository {
     await this.loginInfoModel.create(newLoginInfo);
 
     return { accessToken, refreshToken };
+  }
+
+  async remove(refreshToken: string): Promise<void> {
+    await this.loginInfoModel.findOneAndDelete({ refreshToken });
   }
 }

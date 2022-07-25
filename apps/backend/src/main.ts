@@ -9,6 +9,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { createLogger } from '@td/backend/util';
 
 import { AppModule } from './app/app.module';
+import { AllHttpExceptionFilter } from './app/filters/all-http-exception.filter';
 
 async function bootstrap() {
   const logger = createLogger('Todo App');
@@ -31,6 +32,7 @@ async function bootstrap() {
   }
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalFilters(new AllHttpExceptionFilter());
 
   await app.listen(port);
   Logger.log(

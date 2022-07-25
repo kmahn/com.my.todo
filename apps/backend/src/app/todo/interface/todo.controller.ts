@@ -10,7 +10,6 @@ import { TodoNotFoundException } from '../repositories/exceptions/todo-not-found
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 
-@ApiBearerAuth()
 @ApiTags('Todo APIs')
 @Controller('todo')
 export class TodoController {
