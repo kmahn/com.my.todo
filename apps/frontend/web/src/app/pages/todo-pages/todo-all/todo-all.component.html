@@ -1,0 +1,10 @@
+<header class="py-4 px-6 bg-stone-700">
+  <h2 class="text-white text-2xl">Todo All</h2>
+</header>
+<ul class="flex flex-col center gap-2 p-4">
+  <li *ngFor="let todo of todos" class="flex px-3.5 py-2 gap-4 border-2 border-blue-800 rounded-md">
+    <div>{{todo.title}}</div>
+    <div>{{getUserName(todo)}}</div>
+    <div>{{todo.done}}</div>
+  </li>
+</ul>

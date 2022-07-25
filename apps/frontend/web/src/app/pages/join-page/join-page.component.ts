@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthBaseService } from '../../services/auth-base.service';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthBaseService } from '../../services/auth-base.service';
 
 @Component({
   selector: 'td-join-page',
@@ -22,8 +22,17 @@ export class JoinPageComponent implements OnInit, OnDestroy {
   ) {
     this.joinFormGroup = fb.group({
       email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required]],
+      password: [null, [Validators.required, Validators.minLength(4)]],
       name: [null, [Validators.required]],
+      confirmPassword: [null],
+    }, {
+      validators: [
+        form => {
+          const password = form.get('password')?.value;
+          const confirmPassword = form.get('confirmPassword')?.value;
+          return password === confirmPassword ? null : { confirmPassword: true };
+        },
+      ],
     });
   }
 

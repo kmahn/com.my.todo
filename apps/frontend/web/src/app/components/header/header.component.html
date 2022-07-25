@@ -1,3 +1,23 @@
-<h1 class="title">
+<h1 class="title mr-auto whitespace-nowrap">
   todo application
 </h1>
+<div *ngIf="authService.loggedIn$ | async; else notLoggedInRef" class="w-full gap-4">
+
+  <div class="flex gap-4 float-left pl-9">
+    <a routerLink="/todo/all">전체 Todo</a>
+    <a routerLink="/todo/me">나의 Todo</a>
+  </div>
+
+  <div class="flex gap-4 float-right">
+    <span>{{authService.me?.name}} 로그인 중</span>
+    <button type="button" (click)="logout()">로그아웃</button>
+  </div>
+</div>
+
+
+<ng-template #notLoggedInRef>
+  <div class="flex text-sm gap-4">
+    <a routerLink="/login">로그인</a>
+    <a routerLink="/join">회원가입</a>
+  </div>
+</ng-template>

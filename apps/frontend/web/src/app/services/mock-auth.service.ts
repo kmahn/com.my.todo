@@ -12,6 +12,7 @@ export class MockAuthService extends AuthBaseService {
     email: 'test@test.com',
     name: '홍길동',
     role: 'member',
+    auth: '1',
   }];
   readonly auths: Auth[] = [{
     providerId: '1',
@@ -19,17 +20,23 @@ export class MockAuthService extends AuthBaseService {
     password: 'asdf',
     user: '1',
   }];
-
+  readonly me$: Observable<User | null>;
   readonly loggedIn$: Observable<boolean>;
 
   private loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private meSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
   constructor() {
     super();
     this.loggedIn$ = this.loggedInSubject.asObservable();
+    this.me$ = this.meSubject.asObservable();
   }
 
-  join({ email, name, password }: Pick<User & Auth, 'email' | 'name' | 'password'>): Observable<void> {
+  join({
+         email,
+         name,
+         password,
+       }: Pick<User & Auth, 'email' | 'name' | 'password'>): Observable<void> {
     const _id = String(this.users.length + 1);
     const exUser = this.users.find(user => user.email === email);
     if (exUser) {
@@ -40,7 +47,7 @@ export class MockAuthService extends AuthBaseService {
       );
     }
 
-    this.users.push({ _id, email, name, role: 'member' });
+    this.users.push({ _id, email, name, role: 'member', auth: '1' });
 
     this.auths.push({
       providerId: _id,
@@ -70,6 +77,14 @@ export class MockAuthService extends AuthBaseService {
 
     this.loggedInSubject.next(true);
 
+    return of(undefined);
+  }
+
+  get me(): User | null {
+    return null;
+  }
+
+  logout(): Observable<void> {
     return of(undefined);
   }
 }
