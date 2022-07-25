@@ -1,3 +1,7 @@
+:host {
+  @apply flex w-full bg-stone-600 text-white border-x-8 border-x-red-700 items-center p-4;
+}
+
 .title {
-  @apply text-4xl font-bold capitalize p-4 bg-stone-600 text-white border-x-8 border-x-red-700;
+  @apply text-4xl font-bold capitalize;
 }

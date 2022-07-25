@@ -32,7 +32,7 @@ import { SignupPageComponent } from './pages/signup-page/signup-page.component';
   providers: [
     {
       provide: AuthBaseService,
-      useClass: environment.production ? AuthService : MockAuthService,
+      useClass: AuthService,
     },
     appConfigProvider,
   ],

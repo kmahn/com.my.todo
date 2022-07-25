@@ -21,14 +21,16 @@ export class MockAuthService extends AuthBaseService {
     password: 'asdf',
     user: '1',
   }];
-
   readonly loggedIn$: Observable<boolean>;
 
+  readonly me$: Observable<User | null>;
   private loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  private meSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   constructor() {
     super();
     this.loggedIn$ = this.loggedInSubject.asObservable();
+    this.me$ = this.meSubject.asObservable();
   }
 
   join({ email, name }: Partial<User>, password: string): Observable<void> {
@@ -79,6 +81,14 @@ export class MockAuthService extends AuthBaseService {
 
     this.loggedInSubject.next(true);
 
+    return of(undefined);
+  }
+
+  get me(): User | null {
+    return null;
+  }
+
+  logout(): Observable<void> {
     return of(undefined);
   }
 }
