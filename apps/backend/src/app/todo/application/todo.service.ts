@@ -34,7 +34,7 @@ export class TodoService {
 
   async updateOne(id: string, todo: Partial<Todo>, user: UserProfile): Promise<void> {
     const document = await this.todoRepository.findOne(id);
-    if ((document.user as User)._id !== user._id) {
+    if (String((document.user as User)._id) !== String(user._id)) {
       throw new ForbiddenException();
     }
     return this.todoRepository.updateOne(id, todo);
@@ -42,7 +42,7 @@ export class TodoService {
 
   async deleteOne(id: string, user: UserProfile): Promise<void> {
     const document = await this.todoRepository.findOne(id);
-    if ((document.user as User)._id !== user._id) {
+    if (String((document.user as User)._id) !== String(user._id)) {
       throw new ForbiddenException();
     }
 

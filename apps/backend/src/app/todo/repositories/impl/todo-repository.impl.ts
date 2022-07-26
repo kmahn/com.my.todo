@@ -26,7 +26,7 @@ export class TodoRepositoryImpl implements TodoRepository {
 
   async findAll(filter: FilterQuery<Partial<Todo>> = {}): Promise<Array<Partial<Todo>>> {
     return this.todoModel
-      .find()
+      .find(filter)
       .populate('user')
       .lean();
   }

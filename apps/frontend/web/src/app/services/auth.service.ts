@@ -69,40 +69,11 @@ export class AuthService extends AuthBaseService {
     this.loggedIn$.pipe(
       filter(loggedIn => loggedIn),
       switchMap(() =>
-        this.http.get<User>(
-          `${this.BASE_URL}/auth/me`,
-          { headers: { Authorization: `Bearer ${this.storage.get(StorageKeys.ACCESS_TOKEN)}` } }
-        )
-      ),
-      catchError(
-        (err: HttpErrorResponse) => {
-          if (err.error.code === ErrorCode.ACCESS_TOKEN_EXPIRED) {
-            const refreshToken = this.storage.get(StorageKeys.REFRESH_TOKEN);
-            return this.http.get<AuthTokens>(
-              `${this.BASE_URL}/auth/token/refresh`,
-              { headers: { 'x-refresh-token': refreshToken as string } })
-              .pipe(
-                tap(res => {
-                  const { accessToken, refreshToken } = res;
-                  this.storage.set(StorageKeys.ACCESS_TOKEN, accessToken);
-                  this.storage.set(StorageKeys.REFRESH_TOKEN, refreshToken);
-                  this._loggedInSubject.next(true);
-                }),
-                switchMap(
-                  () =>
-                    this.http.get<User>(
-                      `${this.BASE_URL}/auth/me`,
-                      { headers: { Authorization: `Bearer ${this.storage.get(StorageKeys.ACCESS_TOKEN)}` } }
-                    )
-                )
-              );
-          }
-          return throwError(() => err);
-        }
+        this.http.get<User>(`${this.BASE_URL}/auth/me`)
       ),
     ).subscribe({
       next: me => this._meSubject.next(me),
-      error: err => this._processLogout(),
+      error: () => this._processLogout(),
     });
   }
 }
