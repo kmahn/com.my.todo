@@ -23,12 +23,12 @@ export class TodoService {
 
   findAll(): Observable<Todo[]> {
     const accessToken: string = this.getAccessToken();
-    return this.http.get(`${this.BASE_URL}/todo`, { headers: { 'Authorization': `Bearer ${accessToken}` } }) as Observable<Todo[]>;
+    return this.http.get(`${this.BASE_URL}/todo`) as Observable<Todo[]>;
   }
 
   findMe(): Observable<Todo[]> {
     const accessToken: string = this.getAccessToken();
-    return this.http.get(`${this.BASE_URL}/todo/me`, { headers: { 'Authorization': `Bearer ${accessToken}` } }) as Observable<Todo[]>;
+    return this.http.get(`${this.BASE_URL}/todo/me`) as Observable<Todo[]>;
   }
 
   updateOne(editTodo: Todo): Observable<void> {
@@ -39,16 +39,13 @@ export class TodoService {
         title: editTodo.title,
         done: editTodo.done,
       },
-      {
-        headers: { 'Authorization': `Bearer ${accessToken}` },
-      },
     ).subscribe();
     return of(undefined);
   }
 
   deleteOne(todo: Todo): Observable<void> {
     const accessToken: string = this.getAccessToken();
-    this.http.delete(`${this.BASE_URL}/todo/${todo._id}`, { headers: { 'Authorization': `Bearer ${accessToken}` } }).subscribe();
+    this.http.delete(`${this.BASE_URL}/todo/${todo._id}`).subscribe();
     return of(undefined);
   }
 
@@ -58,7 +55,7 @@ export class TodoService {
 
   create(title: string): Observable<void> {
     const accessToken: string = this.getAccessToken();
-    this.http.post(`${this.BASE_URL}/todo`, { title }, { headers: { 'Authorization': `Bearer ${accessToken}` } }).subscribe();
+    this.http.post(`${this.BASE_URL}/todo`, { title }).subscribe();
     return of(undefined);
   }
 }

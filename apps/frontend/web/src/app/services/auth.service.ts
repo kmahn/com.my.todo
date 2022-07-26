@@ -1,17 +1,14 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { ErrorCode } from '@td/common/error';
 import { Auth, AuthTokens, User } from '@td/common/types';
 import {
   BehaviorSubject,
-  catchError,
   filter,
   finalize,
   map,
   Observable,
   switchMap,
   tap,
-  throwError,
 } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../providers/config.provider';
 import { AuthBaseService } from './auth-base.service';
@@ -76,7 +73,7 @@ export class AuthService extends AuthBaseService {
     return this.http.get(`${this.BASE_URL}/auth/logout`, { headers: { 'x-refresh-token': refreshToken } })
     .pipe(
       finalize(() => this._processLogout()),
-      map(res => undefined)
+      map(res => undefined),
     );
   }
 
@@ -94,34 +91,7 @@ export class AuthService extends AuthBaseService {
       switchMap(() =>
         this.http.get<User>(
           `${this.BASE_URL}/auth/me`,
-          { headers: { Authorization: `Bearer ${this.storage.get(StorageKeys.ACCESS_TOKEN)}` } },
         ),
-      ),
-      catchError(
-        (err: HttpErrorResponse) => {
-          if (err.error.code === ErrorCode.ACCESS_TOKEN_EXPIRED) {
-            const refreshToken = this.storage.get(StorageKeys.REFRESH_TOKEN);
-            return this.http.get<AuthTokens>(
-              `${this.BASE_URL}/auth/token/refresh`,
-              { headers: { 'x-refresh-token': refreshToken as string } })
-            .pipe(
-              tap(res => {
-                const { accessToken, refreshToken } = res;
-                this.storage.set(StorageKeys.ACCESS_TOKEN, accessToken);
-                this.storage.set(StorageKeys.REFRESH_TOKEN, refreshToken);
-                this._loggedInSubject.next(true);
-              }),
-              switchMap(
-                () =>
-                  this.http.get<User>(
-                    `${this.BASE_URL}/auth/me`,
-                    { headers: { Authorization: `Bearer ${this.storage.get(StorageKeys.ACCESS_TOKEN)}` } },
-                  ),
-              ),
-            );
-          }
-          return throwError(() => err);
-        },
       ),
     ).subscribe({
       next: me => this._meSubject.next(me),
