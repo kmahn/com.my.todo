@@ -1,0 +1,9 @@
+<div class="space-y-2"
+     cdkDropList
+     (cdkDropListDropped)="updateOrder($event)">
+  <div *ngIf="todoService.todos.length === 0">등록된 할일이 없습니다.</div>
+  <td-todo-item *ngFor="let todo of todoService.todos$ | async"
+                cdkDrag
+                class="cursor-pointer"
+                [todo]="todo"></td-todo-item>
+</div>

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Todo } from '@td/common/types';
-import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateTodoDto implements Partial<Todo> {
   @ApiProperty()
@@ -14,4 +14,11 @@ export class CreateTodoDto implements Partial<Todo> {
   @IsBoolean()
   @IsOptional()
   done?: boolean;
+
+  @ApiProperty({
+    required: false
+  })
+  @IsNumber()
+  @IsOptional()
+  order?: number;
 }

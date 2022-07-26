@@ -1,4 +1,4 @@
-import { ArgumentsHost, Catch } from '@nestjs/common';
+import { ArgumentsHost, Catch, Logger } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { AccessTokenExpiredException } from '../auth/exceptions/access-token-expired.exception';
 import { LoginRequiredException } from '../auth/exceptions/login-required.exception';
@@ -18,6 +18,8 @@ export class AllHttpExceptionFilter extends BaseExceptionFilter {
     } else if (message === 'No auth token') {
       exception = new LoginRequiredException();
     }
+
+    Logger.debug(exception);
 
     const responseBody = {
       ...exception.getResponse(),

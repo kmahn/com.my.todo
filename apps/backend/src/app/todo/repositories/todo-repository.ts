@@ -9,6 +9,8 @@ export interface TodoRepository {
 
   updateOne(id: string, todo: Partial<Todo>): Promise<void>;
 
+  update(filter: unknown, $set: Partial<Todo>): Promise<void>;
+
   deleteOne(id: string): Promise<void>;
 }
 

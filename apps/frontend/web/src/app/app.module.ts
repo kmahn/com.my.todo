@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
+import { TodoModule } from './features/todo/todo.module';
 import { TokenInterceptor } from './interceptors/token.interceptor.service';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
@@ -27,6 +28,7 @@ import { AuthService } from './services/auth.service';
     HeaderComponent,
     ReactiveFormsModule,
     HttpClientModule,
+    TodoModule,
   ],
   providers: [
     {

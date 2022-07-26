@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Put } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ForbiddenException } from '@td/backend/exception';
 import { ApiExceptions, User } from '@td/backend/util';
@@ -8,6 +8,7 @@ import { Roles } from '../../auth/interface/decorators/roles.decorator';
 import { TodoService } from '../application/todo.service';
 import { TodoNotFoundException } from '../repositories/exceptions/todo-not-found.exception';
 import { CreateTodoDto } from './dto/create-todo.dto';
+import { UpdateOrderDto } from './dto/update-order.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 
 @ApiTags('Todo APIs')
@@ -53,6 +54,12 @@ export class TodoController {
     @User() user: UserProfile
   ) {
     return this.todoService.updateOne(id, dto, user);
+  }
+
+  @Patch('order')
+  @Auth()
+  updateOrder(@Body() dto: UpdateOrderDto[], @User() user: UserProfile): Promise<void> {
+    return this.todoService.updateOrder(dto, user);
   }
 
   @Delete(':id')

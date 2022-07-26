@@ -16,7 +16,7 @@ import { Strategies } from './strategies';
       imports: [BackendConfigModule],
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('JWT_SECRET'),
-        signOptions: { expiresIn: '30s' },
+        signOptions: { expiresIn: '1d' },
       }),
       inject: [ConfigService],
     })

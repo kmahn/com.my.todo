@@ -15,12 +15,20 @@ export class TodoDocument extends Document implements Partial<Todo> {
   done?: boolean;
 
   @Prop({
+    type: Number,
+    default: 0,
+    index: true,
+  })
+  order?: number;
+
+  @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: UserDocument.name,
     required: true,
     index: true,
   })
   user: string;
+
 }
 
 export const TodoSchema = SchemaFactory.createForClass(TodoDocument);

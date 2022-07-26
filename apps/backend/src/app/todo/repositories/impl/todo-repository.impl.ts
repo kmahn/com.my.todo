@@ -28,6 +28,7 @@ export class TodoRepositoryImpl implements TodoRepository {
     return this.todoModel
       .find(filter)
       .populate('user')
+      .sort('order')
       .lean();
   }
 
@@ -47,5 +48,9 @@ export class TodoRepositoryImpl implements TodoRepository {
     if (!document) {
       throw new TodoNotFoundException();
     }
+  }
+
+  async update(filter: unknown, $set: Partial<Todo>): Promise<void> {
+    await this.todoModel.updateMany(filter, { $set });
   }
 }
