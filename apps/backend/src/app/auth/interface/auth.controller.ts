@@ -40,7 +40,7 @@ export class AuthController {
     return this.authService.login(email, password);
   }
 
-  @Get('todo-me')
+  @Get('me')
   @Auth()
   getMe(@User() user: UserProfile): Promise<Partial<IUser>> {
     return this.authService.getMe(user._id);

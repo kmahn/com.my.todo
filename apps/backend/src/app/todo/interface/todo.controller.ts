@@ -30,7 +30,7 @@ export class TodoController {
   @ApiExceptions(
     ForbiddenException,
   )
-  @Get('todo-me')
+  @Get('me')
   @Auth()
   findMyTodos(@User() user: UserProfile): Promise<Partial<Todo>[]> {
     return this.todoService.findMyTodos(user._id);
@@ -43,7 +43,6 @@ export class TodoController {
   @Get(':id')
   @Auth()
   findOne(@Param('id') id: string, @User() user): Promise<Partial<Todo>> {
-
     return this.todoService.findOne(id, user);
   }
 
@@ -66,7 +65,8 @@ export class TodoController {
     return this.todoService.updateOne(id, dto, user);
   }
 
-  @Delete()
+  @Delete(':id')
+  @Auth()
   deleteOne(
     @Param('id') id: string,
     @User() user: UserProfile,

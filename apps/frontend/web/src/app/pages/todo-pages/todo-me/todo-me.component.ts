@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Todo } from '@td/common/types';
+import { TodoService } from '../../../services/todo.service';
 
 @Component({
   selector: 'td-todo-me',
@@ -6,7 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./todo-me.component.scss'],
 })
 export class TodoMeComponent implements OnInit {
-  constructor() {}
+  todos: Todo[] = [];
 
-  ngOnInit(): void {}
+  constructor(
+    private todoService: TodoService,
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.findMe();
+  }
+
+  findMe() {
+    this.todoService.findMe().subscribe(todos => this.todos = todos as Todo[]);
+  }
 }

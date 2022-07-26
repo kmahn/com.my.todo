@@ -1,1 +1,95 @@
-<p>todo works!</p>
+<div class="flex flex-col center gap-4 py-4 px-4">
+  <div
+    class="flex mt-2 mb-1"
+    *ngIf="!editMode"
+  >
+    <!--    *ngIf="router.url === '/todos/me'"-->
+    <input
+      class="shadow appearance-none border rounded w-full px-3 mr-4"
+      placeholder="Add Todo"
+      [(ngModel)]="createTodoTitle"
+    >
+    <button
+      class="p-2 rounded text-teal-500 border-2 border-teal-400 hover:text-white hover:bg-teal-500"
+      (click)="createTodo(createTodoTitle!)"
+    >
+      Add
+    </button>
+  </div>
+  <div
+    class="flex mt-2 mb-1"
+    *ngIf="editMode"
+  >
+    <input
+      class="shadow appearance-none border rounded w-full px-3 mr-4"
+      placeholder="Edit Title"
+      [(ngModel)]="editTodo!.title"
+    >
+    <button
+      class="p-2 rounded mr-1 text-teal-500 border-2 border-teal-400 hover:text-white hover:bg-teal-500"
+      (click)="updateTodo(editTodo!)"
+    >
+      Edit
+    </button>
+    <button
+      class="shrink-0 p-2 ml-1 border-2 rounded hover:text-white text-red-500 border-red-500 hover:bg-red-500"
+      (click)="changeEditMode(null)"
+    >
+      Cancel
+    </button>
+  </div>
+
+  <div
+    class="flex"
+    *ngFor="let todo of todos"
+  >
+    <div
+      *ngIf="isLoaded$ | async"
+      [ngClass]="getEdit(todo)"
+      class="flex justify-between w-full items-center pl-3"
+    >
+      <div
+        [ngClass]="getDone(todo)"
+      >
+        {{todo.title}}
+      </div>
+      <div
+        *ngIf="router.url === '/todos'">
+        {{getUserName(todo)}}
+      </div>
+    </div>
+
+    <div
+      *ngIf="authService.me?._id === getUserId(todo)"
+      class="flex shrink-0 justify-center align-middle"
+    >
+      <button
+        class=" p-2 ml-4 mr-1 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
+        (click)="changeDone(todo)"
+        *ngIf="!todo.done"
+      >
+        Done
+      </button>
+      <button
+        class="shrink-0 p-2 ml-4 mr-1 border-2 rounded hover:text-white text-gray-500 border-gray-500 hover:bg-gray-500"
+        (click)="changeDone(todo)"
+        *ngIf="todo.done"
+      >
+        Not Done
+      </button>
+      <button
+        class="shrink-0 p-2 ml-1 mr-1 border-2 rounded hover:text-white text-gray-500 border-gray-500 hover:bg-gray-500"
+        (click)="changeEditMode(todo)"
+        *ngIf="!editMode"
+      >
+        Edit
+      </button>
+      <button
+        class="shrink-0 p-2 ml-1 border-2 rounded hover:text-white text-red-500 border-red-500 hover:bg-red-500"
+        (click)="deleteTodo(todo)"
+      >
+        Remove
+      </button>
+    </div>
+  </div>
+</div>

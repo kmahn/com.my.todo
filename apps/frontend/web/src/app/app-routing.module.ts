@@ -13,8 +13,8 @@ const routes: Routes = [
   { path: 'login', canActivate: [NotAuthGuard], component: LoginPageComponent },
   { path: 'main', canActivate: [AuthGuard], component: MainPageComponent },
   { path: 'join', canActivate: [NotAuthGuard], component: JoinPageComponent },
-  { path: 'todo/todo-all', canActivate: [AuthGuard], component: TodoAllComponent },
-  { path: 'todo/todo-me', canActivate: [AuthGuard], component: TodoMeComponent },
+  { path: 'todos', canActivate: [AuthGuard], component: TodoAllComponent },
+  { path: 'todos/me', canActivate: [AuthGuard], component: TodoMeComponent },
 ];
 
 @NgModule({

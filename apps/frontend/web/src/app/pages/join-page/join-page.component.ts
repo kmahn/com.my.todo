@@ -45,7 +45,10 @@ export class JoinPageComponent implements OnInit, OnDestroy {
 
     const { email, password, name } = this.joinFormGroup.getRawValue();
     this.authService.join({ email, password, name }).subscribe({
-      next: () => this.router.navigateByUrl('/main'),
+      next: () => {
+        alert('회원가입에 성공하셨습니다!');
+        this.router.navigateByUrl('/login');
+      },
       error: err => alert(err.error?.code || err.message),
     });
   }

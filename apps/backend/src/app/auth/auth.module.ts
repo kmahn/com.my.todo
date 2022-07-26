@@ -17,7 +17,7 @@ import { Strategies } from './strategies';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('JWT_SECRET'),
-        signOptions: { expiresIn: '1h' },
+        signOptions: { expiresIn: '30m' },
       }),
     }),
   ],

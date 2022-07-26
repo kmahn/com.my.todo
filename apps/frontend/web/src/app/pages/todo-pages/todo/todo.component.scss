@@ -1,0 +1,7 @@
+.done {
+  @apply line-through text-green-500;
+}
+
+.edit {
+  @apply rounded-md border-solid border-blue-300 border-4 px-3.5 bg-blue-400 text-white;
+}

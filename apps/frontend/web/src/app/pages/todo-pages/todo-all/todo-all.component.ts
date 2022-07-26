@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Todo, User } from '@td/common/types';
 import { TodoService } from '../../../services/todo.service';
 
@@ -15,10 +15,10 @@ export class TodoAllComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.todoService.findAll().subscribe(todos => this.todos = todos as Todo[]);
+    this.findAll();
   }
 
-  getUserName(todo: Todo) {
-    return (todo.user as User).name;
+  findAll() {
+    this.todoService.findAll().subscribe(todos => this.todos = todos as Todo[]);
   }
 }

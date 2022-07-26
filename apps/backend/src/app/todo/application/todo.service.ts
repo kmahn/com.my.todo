@@ -21,7 +21,7 @@ export class TodoService {
 
   async findOne(id: string, userProfile: UserProfile): Promise<Partial<Todo>> {
     const document = await this.todoRepository.findOne(id);
-    if (userProfile.role !== 'admin' && ((document.user as User)._id) !== userProfile._id) {
+    if (userProfile.role !== 'admin' && (document.user as User)._id.toString() !== userProfile._id) {
       throw new ForbiddenException({ code: ErrorCode.FORBIDDEN });
     }
     return document;
@@ -33,15 +33,18 @@ export class TodoService {
 
   async updateOne(id: string, todo: Partial<Todo>, user: UserProfile): Promise<void> {
     const document = await this.todoRepository.findOne(id);
-    if ((document.user as User)._id !== user._id) {
+    if ((document.user as User)._id.toString() !== user._id) {
       throw new ForbiddenException({ code: ErrorCode.FORBIDDEN });
     }
+    console.log(todo);
     return this.todoRepository.updateOne(id, todo);
   }
 
   async deleteOne(id: string, user: UserProfile): Promise<void> {
     const document = await this.todoRepository.findOne(id);
-    if ((document.user as User)._id !== user._id) {
+    console.log(user)
+    console.log((document.user as User)._id.toString())
+    if ((document.user as User)._id.toString() !== user._id) {
       throw new ForbiddenException({ code: ErrorCode.FORBIDDEN });
     }
     return this.todoRepository.deleteOne(id);
